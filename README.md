@@ -7,7 +7,8 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Data](https://img.shields.io/badge/Data-3K%20RGP-orange.svg)](http://snp-seek.irri.org/)
 
-Aplicación interactiva de análisis exploratorio para visualizar y analizar la variación del **Heading Date (HDG)** y su relación con la estructura genética, geografía y morfología en el arroz asiático cultivado (*Oryza sativa*), utilizando datos del proyecto **3,000 Rice Genomes (3K RGP)**.
+Aplicación interactiva de análisis exploratorio para visualizar y analizar la variación del **Heading Date (HDG)** y su relación con la estructura genética, geografía y morfología en el arroz asiático cultivado (*Oryza sativa*), utilizando datos del proyecto **3,000 Rice Genomes (3K RGP)**. 
+**Dataset : https://www.kaggle.com/datasets/saurabhshahane/rice-genotype**
 
 ![App Preview](docs/images/app_preview.png)
 
@@ -91,7 +92,6 @@ El **heading date** (tiempo a floración) es uno de los caracteres más crítico
 - **Análisis exhaustivo del cambio climático**:
   - 4 amenazas principales (temperatura, precipitaciones, sequía, plagas)
   - 4 estrategias de adaptación con genotipos específicos
-  - Genes y QTLs clave
 - Recomendaciones estratégicas por plazos:
   - Corto plazo (1-3 años): MAS, bancos de germoplasma
   - Mediano plazo (3-5 años): Selección genómica, NILs
@@ -293,6 +293,7 @@ El **3K RGP** es el proyecto de secuenciación de arroz más grande hasta la fec
 
 #### Fuentes de Datos:
 
+
 - **Portal oficial**: [SNP-Seek Database](http://snp-seek.irri.org/)
 - **Publicación principal**: Wang et al. (2018) *Nature* 557:43-49
 - **Datos genómicos**: [NCBI BioProject PRJNA301661](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA301661)
@@ -344,12 +345,7 @@ explained_var = pca.explained_variance_ratio_
 - **Heatmaps**: Correlaciones, distribuciones cruzadas
 - **Boxplots/Violin plots**: Comparaciones entre grupos
 
-### 5. Identificación de Germoplasma Elite
 
-- **Criterio 1**: HDG extremos (<80 días, >120 días)
-- **Criterio 2**: Alta diversidad (CV% alto, múltiples subespecies)
-- **Criterio 3**: Adaptación geográfica específica
-- **Criterio 4**: Potencial para cambio climático
 
 ---
 
@@ -437,85 +433,12 @@ explained_var = pca.explained_variance_ratio_
 
 ---
 
-## 📚 Referencias Científicas
-
-### Publicaciones Principales
-
-1. **Wang, W. et al. (2018).** Genomic variation in 3,010 diverse accessions of Asian cultivated rice. *Nature*, 557(7703), 43-49.
-   - DOI: [10.1038/s41586-018-0063-9](https://doi.org/10.1038/s41586-018-0063-9)
-
-2. **The 3,000 rice genomes project (2014).** The 3,000 rice genomes project. *GigaScience*, 3(1), 7.
-   - DOI: [10.1186/2047-217X-3-7](https://doi.org/10.1186/2047-217X-3-7)
-
-3. **Zhou, H. et al. (2021).** Transcriptional and post-transcriptional regulation of heading date in rice. *New Phytologist*, 230(3), 943-956.
-   - DOI: [10.1111/nph.17209](https://doi.org/10.1111/nph.17209)
-
-4. **Garris, A. J. et al. (2005).** Genetic structure and diversity in Oryza sativa L. *Genetics*, 169(3), 1639-1650.
-   - DOI: [10.1534/genetics.104.035642](https://doi.org/10.1534/genetics.104.035642)
-
-5. **Huang, X. et al. (2012).** A map of rice genome variation reveals the origin of cultivated rice. *Nature*, 490(7421), 497-501.
-   - DOI: [10.1038/nature11532](https://doi.org/10.1038/nature11532)
-
-### Genes y QTLs de Heading Date
-
-6. **Doi, K. et al. (2004).** Ehd1, a B-type response regulator in rice, confers short-day promotion of flowering and controls FT-like gene expression independently of Hd1. *Genes & Development*, 18(8), 926-936.
-
-7. **Xue, W. et al. (2008).** Natural variation in Ghd7 is an important regulator of heading date and yield potential in rice. *Nature Genetics*, 40(6), 761-767.
-
-8. **Komiya, R. et al. (2008).** Hd3a and RFT1 are essential for flowering in rice. *Development*, 135(4), 767-774.
-
-### Cambio Climático y Arroz
-
-9. **Zhao, C. et al. (2017).** Temperature increase reduces global yields of major crops in four independent estimates. *PNAS*, 114(35), 9326-9331.
-
-10. **Li, T. et al. (2015).** Uncertainties in predicting rice yield by current crop models under a wide range of climatic conditions. *Global Change Biology*, 21(3), 1328-1341.
-
-### Recursos Adicionales
-
-- **IRRI Rice Knowledge Bank**: [http://www.knowledgebank.irri.org/](http://www.knowledgebank.irri.org/)
-- **SNP-Seek Database**: [http://snp-seek.irri.org/](http://snp-seek.irri.org/)
-- **Oryzabase**: [https://shigen.nig.ac.jp/rice/oryzabase/](https://shigen.nig.ac.jp/rice/oryzabase/)
-
 ---
 
-## 📄 Licencia
-
-Este proyecto está licenciado bajo la **Licencia MIT**. Consulta el archivo [LICENSE](LICENSE) para más detalles.
-
-```
-MIT License
-
-Copyright (c) 2025 [Tu Nombre]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 ```
 
 ---
 
-## 📧 Contacto
-
-**Autor**: Experto en Desarrollo Software y Datos Agrícolas
-
-- 📧 Email: tu-email@ejemplo.com
-- 💼 LinkedIn: [tu-perfil](https://linkedin.com/in/tu-perfil)
-- 🐙 GitHub: [@tu-usuario](https://github.com/tu-usuario)
-- 🌐 Website: [tu-sitio.com](https://tu-sitio.com)
 
 ---
 
