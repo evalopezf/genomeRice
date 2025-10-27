@@ -10,7 +10,6 @@
 Aplicación interactiva de análisis exploratorio para visualizar y analizar la variación del **Heading Date (HDG)** y su relación con la estructura genética, geografía y morfología en el arroz asiático cultivado (*Oryza sativa*), utilizando datos del proyecto **3,000 Rice Genomes (3K RGP)**. 
 **Dataset : https://www.kaggle.com/datasets/saurabhshahane/rice-genotype**
 
-![App Preview](docs/images/app_preview.png)
 
 ---
 
