@@ -1,0 +1,37 @@
+[theme]
+primaryColor = "#4CAF50"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+font = "sans serif"
+
+[server]
+headless = true
+port = 8501
+
+[paths]
+# Rutas a los archivos de datos
+data_dir = "reports"
+traits_file = "reports/traits_geno_aligned.csv"
+genotypes_file = "reports/geno_aligned.csv"
+pca_file = "reports/pca_genotypes_with_metadata.csv"
+coordinates_file = "data/country_coordinates.json"
+
+[display]
+# Configuración de visualización
+default_map_zoom = 3
+default_map_center_lat = 23.5
+default_map_center_lon = 113.2
+chart_height = 600
+max_countries_display = 10
+
+[analysis]
+# Parámetros de análisis
+hdg_early_threshold = 90
+hdg_late_threshold = 110
+correlation_threshold = 0.5
+enableCORS = false
+enableXsrfProtection = true
+
+[browser]
+gatherUsageStats = false

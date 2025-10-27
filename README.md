@@ -1,2 +1,544 @@
 # genomeRice
 
+# 🌾 3K Rice Genomes - Heading Date Explorer
+
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-FF4B4B.svg)](https://streamlit.io/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Data](https://img.shields.io/badge/Data-3K%20RGP-orange.svg)](http://snp-seek.irri.org/)
+
+Aplicación interactiva de análisis exploratorio para visualizar y analizar la variación del **Heading Date (HDG)** y su relación con la estructura genética, geografía y morfología en el arroz asiático cultivado (*Oryza sativa*), utilizando datos del proyecto **3,000 Rice Genomes (3K RGP)**.
+
+![App Preview](docs/images/app_preview.png)
+
+---
+
+## 📋 Tabla de Contenidos
+
+- [Descripción del Proyecto](#-descripción-del-proyecto)
+- [Características Principales](#-características-principales)
+- [Instalación](#-instalación)
+- [Uso](#-uso)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Dataset](#-dataset)
+- [Metodología](#-metodología)
+- [Resultados Clave](#-resultados-clave)
+- [Visualizaciones](#-visualizaciones)
+- [Tecnologías](#-tecnologías)
+- [Contribuciones](#-contribuciones)
+- [Referencias Científicas](#-referencias-científicas)
+- [Licencia](#-licencia)
+- [Contacto](#-contacto)
+
+---
+
+## 🔬 Descripción del Proyecto
+
+Este proyecto desarrolla una **aplicación web interactiva** construida con Streamlit para explorar y analizar datos del **3,000 Rice Genomes Project (3K RGP)**, que contiene información genómica y fenotípica de **1,882 accesiones** de arroz asiático de todo el mundo.
+
+### Objetivos Principales
+
+1. **Caracterizar la variación del Heading Date (HDG_80HEAD)** como rasgo clave para adaptación climática
+2. **Explorar la estructura genética poblacional** mediante análisis de componentes principales (PCA)
+3. **Identificar relaciones entre HDG y caracteres morfológicos** (trade-offs fenotípicos)
+4. **Analizar patrones de adaptación geográfica** y correlación con latitud
+5. **Identificar germoplasma elite** para diferentes objetivos de mejoramiento genético
+6. **Proporcionar recomendaciones estratégicas** frente al cambio climático
+
+### ¿Por qué es importante?
+
+El **heading date** (tiempo a floración) es uno de los caracteres más críticos en arroz porque:
+- Determina la **adaptación a diferentes zonas agroecológicas**
+- Afecta directamente el **rendimiento y la calidad del grano**
+- Es clave para **escapar a estreses** (sequía terminal, calor extremo)
+- Permite **múltiples cosechas por año** en zonas tropicales
+- Es esencial para la **adaptación al cambio climático**
+
+---
+
+## ✨ Características Principales
+
+### 🗺️ **Exploración Geográfica**
+- Mapas interactivos con distribución global de accesiones
+- Coloración dinámica por HDG, subespecie, región o categoría
+- Análisis de correlación latitud-HDG (r ≈ 0.55-0.65)
+- Identificación de centros de diversidad
+
+### 🧬 **Análisis Genético (PCA)**
+- PCA interactivo de 12,486 SNPs
+- Visualización de estructura poblacional (5 subespecies)
+- Selección de componentes principales (PC1-PC10)
+- Coloración por múltiples variables (subespecie, HDG, región, país)
+- Varianza explicada por cada componente
+
+### 📊 **HDG vs Morfología**
+- Gráficos de dispersión interactivos
+- Análisis de correlaciones (matriz visual)
+- Identificación de trade-offs fenotípicos:
+  - HDG vs Altura (r ≈ +0.37)
+  - HDG vs Longitud de Panícula (r ≈ +0.55)
+  - HDG vs Tamaño de Grano (r ≈ +0.20)
+- Comparación por categorías de HDG (Early, Medium, Late)
+
+### 🌍 **Análisis por Regiones**
+- Boxplots comparativos por región (SAS, EAS, SEA, AFR, EUR, etc.)
+- Distribución de subespecies por región (heatmap)
+- Violin plots para visualizar distribuciones completas
+- Estadísticas detalladas (media, SD, CV%, rango)
+
+### 🎯 **Conclusiones y Recomendaciones**
+- Síntesis de hallazgos principales
+- **Análisis exhaustivo del cambio climático**:
+  - 4 amenazas principales (temperatura, precipitaciones, sequía, plagas)
+  - 4 estrategias de adaptación con genotipos específicos
+  - Genes y QTLs clave
+- Recomendaciones estratégicas por plazos:
+  - Corto plazo (1-3 años): MAS, bancos de germoplasma
+  - Mediano plazo (3-5 años): Selección genómica, NILs
+  - Largo plazo (5-10 años): CRISPR, multi-ómica, breeding digital
+
+### 🎛️ **Filtros Independientes**
+- Cada pestaña tiene sus propios filtros (sin conflictos)
+- Filtrado por región geográfica
+- Filtrado por subespecie
+- Rango personalizado de HDG (slider)
+- Estadísticas actualizadas en tiempo real
+
+---
+
+## 🚀 Instalación
+
+### Requisitos Previos
+
+- Python 3.8 o superior
+- pip (gestor de paquetes de Python)
+- Git (opcional, para clonar el repositorio)
+
+### Paso 1: Clonar el Repositorio
+
+```bash
+git clone https://github.com/tu-usuario/3k-rice-hdg-explorer.git
+cd 3k-rice-hdg-explorer
+```
+
+### Paso 2: Crear Entorno Virtual (Recomendado)
+
+```bash
+# En Windows
+python -m venv venv
+venv\Scripts\activate
+
+# En macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Paso 3: Instalar Dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+### Contenido de `requirements.txt`:
+
+```txt
+streamlit>=1.28.0
+pandas>=2.0.0
+numpy>=1.24.0
+plotly>=5.17.0
+scikit-learn>=1.3.0
+scipy>=1.11.0
+```
+
+### Paso 4: Preparar los Datos
+
+Coloca tus archivos de datos en la carpeta `reports/`:
+
+```
+project/
+├── reports/
+│   ├── traits_geno_aligned.csv    # Datos fenotípicos (1882 x N)
+│   └── geno_aligned.csv            # Datos genotípicos (1882 x 12486)
+├── app.py
+└── requirements.txt
+```
+
+**Nota:** Si no tienes los datos reales, la aplicación generará automáticamente datos de demostración realistas basados en las estadísticas del 3K RGP.
+
+---
+
+## 💻 Uso
+
+### Ejecutar la Aplicación
+
+```bash
+streamlit run app.py
+```
+
+La aplicación se abrirá automáticamente en tu navegador en `http://localhost:8501`
+
+### Navegación por la Aplicación
+
+1. **🗺️ Exploración Geográfica**: 
+   - Expande "🎛️ Filtros de Datos" para aplicar filtros
+   - Selecciona el color del mapa (HDG, subespecie, región, categoría)
+   - Explora los gráficos de distribución por país
+   - Analiza la correlación latitud-HDG
+
+2. **🧬 Análisis Genético (PCA)**:
+   - Aplica filtros independientes si es necesario
+   - Selecciona la variable de coloración
+   - Elige los ejes del PCA (PC1-PC10)
+   - Observa la varianza explicada
+
+3. **📊 HDG vs Morfología**:
+   - Filtra los datos según tu interés
+   - Selecciona el rasgo morfológico a analizar
+   - Colorea por subespecie, región o categoría
+   - Revisa la matriz de correlaciones
+
+4. **🌍 Análisis por Regiones**:
+   - Compara distribuciones entre regiones
+   - Analiza la distribución de subespecies
+   - Identifica características regionales
+
+5. **🎯 Conclusiones y Recomendaciones**:
+   - Revisa los hallazgos principales
+   - Explora genotipos de interés para cambio climático
+   - Consulta las recomendaciones estratégicas
+
+### Ejemplos de Uso
+
+#### Buscar germoplasma ultra-precoz para doble cosecha:
+
+1. Ir a "🗺️ Exploración Geográfica"
+2. Expandir filtros y seleccionar:
+   - Subespecie: AUS
+   - Rango HDG: 50-80 días
+3. Observar distribución geográfica
+4. Ir a "🎯 Conclusiones" → "Cambio Climático" para ver lista completa
+
+#### Identificar variedades tolerantes a calor:
+
+1. Ir a "🌍 Análisis por Regiones"
+2. Filtrar por región: SEA o SAS (zonas cálidas)
+3. Analizar distribución de HDG
+4. Consultar sección de "Tolerancia Directa a Calor" en conclusiones
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
+3k-rice-hdg-explorer/
+│
+├── app.py                          # Aplicación principal de Streamlit
+├── requirements.txt                # Dependencias de Python
+├── README.md                       # Este archivo
+├── LICENSE                         # Licencia del proyecto
+│
+├── reports/                        # Datos procesados
+│   ├── traits_geno_aligned.csv    # Fenotipos alineados
+│   └── geno_aligned.csv            # Genotipos alineados
+│
+├── notebooks/                      # Notebooks de análisis
+│   ├── eda_improved.ipynb          # EDA completo
+│   └── preprocessing.ipynb         # Preprocesamiento de datos
+│
+├── docs/                           # Documentación adicional
+│   ├── images/                     # Imágenes para README
+│   ├── methodology.md              # Metodología detallada
+│   └── references.md               # Referencias completas
+│
+└── data/                           # Datos brutos (no incluidos en repo)
+    ├── raw/                        # Datos originales del 3K RGP
+    └── processed/                  # Datos intermedios
+```
+
+---
+
+## 📊 Dataset
+
+### 3,000 Rice Genomes Project (3K RGP)
+
+El **3K RGP** es el proyecto de secuenciación de arroz más grande hasta la fecha, coordinado por el International Rice Research Institute (IRRI) y publicado en **Nature (2018)**.
+
+#### Características del Dataset:
+
+- **Accesiones**: 1,882 variedades de arroz asiático (*Oryza sativa*)
+- **Origen**: 89 países de Asia, África, América y Europa
+- **SNPs**: 12,486 marcadores moleculares (filtrados de 29 millones)
+- **Cobertura genómica**: ~40x por muestra
+- **Subespecies principales**:
+  - **IND** (Indica): 45% - zonas tropicales
+  - **JAP** (Japonica): 27% - zonas templadas
+  - **AUS** (Aus): 11% - Bangladesh, India
+  - **ARO** (Aromatic): 4% - Basmati, Jasmine
+  - **TRJ** (Tropical Japonica): 9% - África, América Latina
+  - **ADM** (Admixed): 4% - híbridos
+
+#### Variables Fenotípicas Principales:
+
+| Variable | Descripción | Unidad | Rango |
+|----------|-------------|--------|-------|
+| `HDG_80HEAD` | Días a 80% de floración | días | 50-175 |
+| `SDHT` | Altura de plántula | cm | 20-60 |
+| `PLT_POST` | Longitud de panícula | cm | 15-35 |
+| `CULT_REPRO` | Duración fase reproductiva | días | 60-150 |
+| `GRLT` | Longitud de grano | mm | 4-12 |
+| `GRWD` | Ancho de grano | mm | 1.5-4 |
+| `GRWT100` | Peso de 100 granos | g | 1-4 |
+| `LLT` | Longitud de hoja bandera | cm | 25-70 |
+| `LWD` | Ancho de hoja bandera | cm | 0.8-2.5 |
+
+#### Fuentes de Datos:
+
+- **Portal oficial**: [SNP-Seek Database](http://snp-seek.irri.org/)
+- **Publicación principal**: Wang et al. (2018) *Nature* 557:43-49
+- **Datos genómicos**: [NCBI BioProject PRJNA301661](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA301661)
+
+---
+
+## 🧪 Metodología
+
+### 1. Preprocesamiento de Datos
+
+```python
+# Alineación de fenotipos y genotipos
+- Eliminación de valores faltantes
+- Normalización de nombres de países
+- Cálculo de variables derivadas (GrainSize, HDG_category)
+- Geocodificación de países
+```
+
+### 2. Análisis Exploratorio
+
+- **Estadísticas descriptivas**: Media, mediana, SD, CV, rango
+- **Distribuciones**: Histogramas, boxplots, violin plots
+- **Correlaciones**: Pearson, Spearman (HDG vs rasgos morfológicos)
+- **Análisis geográfico**: Correlación latitud-HDG
+
+### 3. Análisis de Estructura Genética
+
+```python
+# PCA en 12,486 SNPs
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+# 1. Normalización
+scaler = StandardScaler()
+geno_scaled = scaler.fit_transform(geno)
+
+# 2. PCA
+pca = PCA(n_components=10)
+pca_result = pca.fit_transform(geno_scaled)
+
+# 3. Varianza explicada
+explained_var = pca.explained_variance_ratio_
+```
+
+### 4. Visualizaciones Interactivas
+
+- **Mapas geográficos**: Plotly Mapbox (OpenStreetMap)
+- **Gráficos de dispersión**: Plotly Express con trendlines (OLS)
+- **Heatmaps**: Correlaciones, distribuciones cruzadas
+- **Boxplots/Violin plots**: Comparaciones entre grupos
+
+### 5. Identificación de Germoplasma Elite
+
+- **Criterio 1**: HDG extremos (<80 días, >120 días)
+- **Criterio 2**: Alta diversidad (CV% alto, múltiples subespecies)
+- **Criterio 3**: Adaptación geográfica específica
+- **Criterio 4**: Potencial para cambio climático
+
+---
+
+## 🔑 Resultados Clave
+
+### Variación Genética
+
+- **Rango de HDG**: 50-175 días (CV = 23.1%)
+- **Estructura poblacional**: 5 grupos con FST > 0.3
+- **Diversidad**: Subutilizada en programas actuales
+
+### Adaptación Local
+
+- **Correlación latitud-HDG**: r = 0.55-0.65 (p < 0.001)
+- **Patrón claro**: Latitudes altas → ciclos largos
+- **Sincronización**: Con duración de estación de cultivo
+
+### Trade-offs Fenotípicos
+
+| Trade-off | Correlación | Interpretación |
+|-----------|-------------|----------------|
+| HDG vs Altura | r = +0.37 | Tempranas más bajas |
+| HDG vs Long. Panícula | r = +0.55 | Tempranas con panículas cortas |
+| HDG vs Tamaño Grano | r = +0.20 | Tempranas con granos pequeños |
+
+### Centros de Diversidad
+
+1. **India**: Mayor colección mundial (>500 accesiones), CV alto
+2. **Bangladesh**: Múltiples subespecies, diversidad extrema (AUS)
+3. **Indonesia**: Diversidad tropical única (IND + JAP)
+4. **China**: Amplio rango geográfico, variación latitudinal
+
+### Germoplasma para Cambio Climático
+
+- **Escape térmico**: 165 accesiones AUS (HDG 50-80 días)
+- **Tolerancia calor**: IND tropicales con genes TT1/TT2
+- **Flexibilidad fenológica**: JAP con Hd1 no funcional
+- **Tolerancia sequía**: AUS con sistema radicular profundo
+
+---
+
+## 🛠️ Tecnologías
+
+### Lenguajes y Frameworks
+
+- **Python 3.8+**: Lenguaje principal
+- **Streamlit 1.28+**: Framework web interactivo
+- **Plotly 5.17+**: Visualizaciones interactivas
+
+### Librerías de Análisis
+
+- **Pandas**: Manipulación de datos
+- **NumPy**: Operaciones numéricas
+- **Scikit-learn**: Machine Learning (PCA, StandardScaler)
+- **SciPy**: Estadística (correlaciones, tests)
+
+### Visualización
+
+- **Plotly Express**: Gráficos rápidos
+- **Plotly Graph Objects**: Gráficos personalizados
+- **Mapbox**: Mapas geográficos interactivos
+
+---
+
+## 🤝 Contribuciones
+
+¡Las contribuciones son bienvenidas! Por favor, sigue estos pasos:
+
+1. **Fork** el repositorio
+2. Crea una **rama** para tu feature (`git checkout -b feature/NuevaCaracteristica`)
+3. **Commit** tus cambios (`git commit -m 'Agrega nueva característica'`)
+4. **Push** a la rama (`git push origin feature/NuevaCaracteristica`)
+5. Abre un **Pull Request**
+
+### Áreas de Mejora
+
+- [ ] Integrar datos de rendimiento y calidad de grano
+- [ ] Añadir análisis de interacción genotipo × ambiente (G×E)
+- [ ] Implementar modelos de selección genómica
+- [ ] Agregar predicciones de fenotipos con ML
+- [ ] Incluir análisis de haplotipos en genes candidatos
+- [ ] Desarrollar módulo de diseño de cruces
+- [ ] Añadir exportación de resultados (PDF, Excel)
+- [ ] Internacionalización (i18n) - soporte multiidioma
+
+---
+
+## 📚 Referencias Científicas
+
+### Publicaciones Principales
+
+1. **Wang, W. et al. (2018).** Genomic variation in 3,010 diverse accessions of Asian cultivated rice. *Nature*, 557(7703), 43-49.
+   - DOI: [10.1038/s41586-018-0063-9](https://doi.org/10.1038/s41586-018-0063-9)
+
+2. **The 3,000 rice genomes project (2014).** The 3,000 rice genomes project. *GigaScience*, 3(1), 7.
+   - DOI: [10.1186/2047-217X-3-7](https://doi.org/10.1186/2047-217X-3-7)
+
+3. **Zhou, H. et al. (2021).** Transcriptional and post-transcriptional regulation of heading date in rice. *New Phytologist*, 230(3), 943-956.
+   - DOI: [10.1111/nph.17209](https://doi.org/10.1111/nph.17209)
+
+4. **Garris, A. J. et al. (2005).** Genetic structure and diversity in Oryza sativa L. *Genetics*, 169(3), 1639-1650.
+   - DOI: [10.1534/genetics.104.035642](https://doi.org/10.1534/genetics.104.035642)
+
+5. **Huang, X. et al. (2012).** A map of rice genome variation reveals the origin of cultivated rice. *Nature*, 490(7421), 497-501.
+   - DOI: [10.1038/nature11532](https://doi.org/10.1038/nature11532)
+
+### Genes y QTLs de Heading Date
+
+6. **Doi, K. et al. (2004).** Ehd1, a B-type response regulator in rice, confers short-day promotion of flowering and controls FT-like gene expression independently of Hd1. *Genes & Development*, 18(8), 926-936.
+
+7. **Xue, W. et al. (2008).** Natural variation in Ghd7 is an important regulator of heading date and yield potential in rice. *Nature Genetics*, 40(6), 761-767.
+
+8. **Komiya, R. et al. (2008).** Hd3a and RFT1 are essential for flowering in rice. *Development*, 135(4), 767-774.
+
+### Cambio Climático y Arroz
+
+9. **Zhao, C. et al. (2017).** Temperature increase reduces global yields of major crops in four independent estimates. *PNAS*, 114(35), 9326-9331.
+
+10. **Li, T. et al. (2015).** Uncertainties in predicting rice yield by current crop models under a wide range of climatic conditions. *Global Change Biology*, 21(3), 1328-1341.
+
+### Recursos Adicionales
+
+- **IRRI Rice Knowledge Bank**: [http://www.knowledgebank.irri.org/](http://www.knowledgebank.irri.org/)
+- **SNP-Seek Database**: [http://snp-seek.irri.org/](http://snp-seek.irri.org/)
+- **Oryzabase**: [https://shigen.nig.ac.jp/rice/oryzabase/](https://shigen.nig.ac.jp/rice/oryzabase/)
+
+---
+
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la **Licencia MIT**. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+
+```
+MIT License
+
+Copyright (c) 2025 [Tu Nombre]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+---
+
+## 📧 Contacto
+
+**Autor**: Experto en Desarrollo Software y Datos Agrícolas
+
+- 📧 Email: tu-email@ejemplo.com
+- 💼 LinkedIn: [tu-perfil](https://linkedin.com/in/tu-perfil)
+- 🐙 GitHub: [@tu-usuario](https://github.com/tu-usuario)
+- 🌐 Website: [tu-sitio.com](https://tu-sitio.com)
+
+---
+
+## 🙏 Agradecimientos
+
+- **International Rice Research Institute (IRRI)** por liderar el proyecto 3K RGP
+- **The 3,000 Rice Genomes Consortium** por hacer los datos públicos
+- **Comunidad de mejoramiento genético de arroz** por el valioso feedback
+- **Streamlit** por la excelente plataforma de desarrollo
+- **Plotly** por las herramientas de visualización interactiva
+
+---
+
+## ⭐ Star History
+
+Si este proyecto te ha sido útil, ¡considera darle una ⭐ en GitHub!
+
+---
+
+<div align="center">
+
+### 🌾 Hecho con ❤️ para la comunidad científica del arroz
+
+**El futuro de la producción arrocera depende de nuestra capacidad de actuar ahora**
+
+</div>

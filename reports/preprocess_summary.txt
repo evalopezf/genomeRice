@@ -1,0 +1,5 @@
+Original: 2266 muestras x 12 rasgos
+Constantes eliminadas: 0
+Rasgos eliminados (> 60% NA): 0
+Muestras eliminadas (> 60% NA): 364
+Final (preprocessed): 1882 x 15
