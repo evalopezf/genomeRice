@@ -23,6 +23,10 @@ from pathlib import Path
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from scipy import stats
+from kagglehub import load_dataset, KaggleDatasetAdapter
+from pathlib import Path
+import gdown
+
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -114,7 +118,28 @@ def load_data():
         
         # Cargar datos procesados
         df = pd.read_csv(REPORTS_PATH / "traits_geno_aligned.csv", index_col=0)
-        geno = pd.read_csv(REPORTS_PATH / "geno_aligned.csv", index_col=0)
+
+        geno_file = "geno_aligned.csv"
+        
+        # Si el archivo no existe localmente, descargarlo
+        if not Path(geno_file).exists():
+            st.info("Descargando datos genéticos... (solo la primera vez)")
+            
+            # Opción 1: Usando gdown (recomendado para Google Drive)
+            file_id = "13IjhzMdNju1yYZPoO5HW-hoxjt2J5-pu"  # Extraer del link compartido
+            url = f"https://drive.google.com/uc?id={file_id}"
+            gdown.download(url, geno_file, quiet=False)
+            
+            # Opción 2: Usando requests (alternativa)
+            # url = f"https://drive.google.com/uc?export=download&id={file_id}"
+            # response = requests.get(url)
+            # with open(geno_file, "wb") as f:
+            #     f.write(response.content)
+        
+        # Leer el archivo (ya sea recién descargado o en caché local)
+            geno_aligned = pd.read_csv(geno_file, index_col=0)
+            geno  =geno_aligned
+        #geno = pd.read_csv(REPORTS_PATH / "geno_aligned.csv", index_col=0)
         
         # Verificar que los datos se cargaron correctamente
         if len(df) == 0 or len(geno) == 0:
