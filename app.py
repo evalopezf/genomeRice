@@ -111,163 +111,69 @@ st.markdown("""
 @st.cache_data
 def load_data():
     """Carga los datos fenotípicos y genotípicos desde los archivos procesados"""
-    try:
-        # Definir rutas basadas en la estructura del proyecto
-        ROOT = Path(".")
-        REPORTS_PATH = ROOT / "reports"
-        
-        # Cargar datos procesados
-        df = pd.read_csv(REPORTS_PATH / "traits_geno_aligned.csv", index_col=0)
+    # Definir rutas basadas en la estructura del proyecto
+    SCRIPT_DIR = Path(__file__).parent  # Directorio donde está app.py
+    REPORTS_PATH = SCRIPT_DIR / "reports"
+    # Cargar datos procesados
+    df = pd.read_csv(REPORTS_PATH / "traits_geno_aligned.csv", index_col=0)
+    st.success(f"✅ Traits: {df.isna().sum()}")
 
-        geno_file = "geno_aligned.csv"
-        
-        # Si el archivo no existe localmente, descargarlo
-        if not Path(geno_file).exists():
-            st.info("Descargando datos genéticos... (solo la primera vez)")
-            
-            # Opción 1: Usando gdown (recomendado para Google Drive)
-            file_id = "13IjhzMdNju1yYZPoO5HW-hoxjt2J5-pu"  # Extraer del link compartido
-            url = f"https://drive.google.com/uc?id={file_id}"
-            gdown.download(url, geno_file, quiet=False)
-            
-            # Opción 2: Usando requests (alternativa)
-            # url = f"https://drive.google.com/uc?export=download&id={file_id}"
-            # response = requests.get(url)
-            # with open(geno_file, "wb") as f:
-            #     f.write(response.content)
-        
-        # Leer el archivo (ya sea recién descargado o en caché local)
-            geno_aligned = pd.read_csv(geno_file, index_col=0)
-            geno  =geno_aligned
-        #geno = pd.read_csv(REPORTS_PATH / "geno_aligned.csv", index_col=0)
-        
-        # Verificar que los datos se cargaron correctamente
-        if len(df) == 0 or len(geno) == 0:
-            raise FileNotFoundError("Los archivos están vacíos")
-            
-        # Crear variables derivadas coherentes con el EDA
-        if 'GRLT' in df.columns and 'GRWD' in df.columns:
-            df['GrainSize'] = (df['GRLT'] / df['GRWD']).round(2)
-            
-        df['HDG_category'] = pd.cut(
-            df['HDG_80HEAD'],
-            bins=[-np.inf, 90, 110, np.inf],
-            labels=['Early (<90d)', 'Medium (90-110d)', 'Late (>110d)']
-        )
-        
-        # Agregar coordenadas y regiones si no existen
-        if 'latitude' not in df.columns or 'longitude' not in df.columns:
-            df = add_geographic_data(df)
-            
-    except Exception as e:
-        st.warning(f"⚠️ No se encontraron datos reales. Generando datos de demostración... ({str(e)})")
-        df, geno = generate_demo_data()
+    geno_file = "geno_aligned.csv"
     
-    return df, geno
+    # Si el archivo no existe localmente, descargarlo
+    if not Path(geno_file).exists():
+        st.info("Descargando datos genéticos... (solo la primera vez)")
+        
+        # Opción 1: Usando gdown (recomendado para Google Drive)
+        file_id = "13IjhzMdNju1yYZPoO5HW-hoxjt2J5-pu"  # Extraer del link compartido
+        url = f"https://drive.google.com/uc?id={file_id}"
+        gdown.download(url, geno_file, quiet=False)
+        
+        # Opción 2: Usando requests (alternativa)
+        # url = f"https://drive.google.com/uc?export=download&id={file_id}"
+        # response = requests.get(url)
+        # with open(geno_file, "wb") as f:
+        #     f.write(response.content)
+    
+    # Leer el archivo (ya sea recién descargado o en caché local)
+    geno_aligned = pd.read_csv(geno_file, index_col=0)
 
-def add_geographic_data(df):
-    """Agrega coordenadas y regiones geográficas al dataframe"""
-    # Coordenadas aproximadas por país (centros geográficos)
-    coords = {
-        'India': (20.5937, 78.9629, 'SAS'),
-        'Bangladesh': (23.6850, 90.3563, 'SAS'),
-        'China': (35.8617, 104.1954, 'EAS'),
-        'Indonesia': (-0.7893, 113.9213, 'SEA'),
-        'Philippines': (12.8797, 121.7740, 'SEA'),
-        'Thailand': (15.8700, 100.9925, 'SEA'),
-        'Vietnam': (14.0583, 108.2772, 'SEA'),
-        'Japan': (36.2048, 138.2529, 'EAS'),
-        'South_Korea': (35.9078, 127.7669, 'EAS'),
-        'Korea': (35.9078, 127.7669, 'EAS'),
-        'Pakistan': (30.3753, 69.3451, 'SAS'),
-        'Sri_Lanka': (7.8731, 80.7718, 'SAS'),
-        'Myanmar': (21.9162, 95.9560, 'SEA'),
-        'Cambodia': (12.5657, 104.9910, 'SEA'),
-        'Taiwan': (23.5937, 121.0254, 'EAS'),
-        'Nepal': (28.3949, 84.1240, 'SAS'),
-        'Bhutan': (27.5142, 90.4336, 'SAS'),
-        'Laos': (19.8563, 102.4955, 'SEA'),
-        'Malaysia': (4.2105, 101.9758, 'SEA'),
-        'Iran': (32.4279, 53.6880, 'WAS'),
-        'Africa': (-8.7832, 34.5085, 'AFR'),
-        'USA': (37.0902, -95.7129, 'NAM'),
-        'Brazil': (-14.2350, -51.9253, 'SAM'),
-        'Italy': (41.8719, 12.5674, 'EUR'),
-        'Spain': (40.4637, -3.7492, 'EUR'),
-        'France': (46.2276, 2.2137, 'EUR'),
-    }
-    
-    # Mapear coordenadas y regiones
-    if 'country' in df.columns:
-        df['latitude'] = df['country'].map(lambda x: coords.get(x, (None, None, None))[0])
-        df['longitude'] = df['country'].map(lambda x: coords.get(x, (None, None, None))[1])
-        df['region'] = df['country'].map(lambda x: coords.get(x, (None, None, None))[2])
-    
-    return df
+    geno  =geno_aligned
+    common_index = df.index.intersection(geno_aligned.index)
+    df = df.loc[common_index].copy()
+    geno = geno_aligned.loc[common_index].copy()
 
-def generate_demo_data():
-    """Genera datos de demostración realistas basados en el análisis del 3K RGP"""
-    np.random.seed(42)
-    n_samples = 1882  # Tamaño real del dataset 3K RGP
     
-    # Lista de países del análisis real
-    countries = ['India', 'Bangladesh', 'China', 'Indonesia', 'Philippines', 
-                'Thailand', 'Vietnam', 'Japan', 'South_Korea', 'Pakistan',
-                'Sri_Lanka', 'Myanmar', 'Cambodia', 'Taiwan', 'Nepal']
-    
-    # Subespecies con distribución realista
-    subspecies_list = ['IND', 'JAP', 'AUS', 'ARO', 'TRJ', 'ADM']
-    subspecies = np.random.choice(subspecies_list, n_samples, 
-                                 p=[0.45, 0.27, 0.11, 0.04, 0.09, 0.04])
-    
-    # Generar heading dates con medias y desviaciones por subespecie (basado en EDA real)
-    hdg_means = {'IND': 105, 'JAP': 87, 'AUS': 80, 'ARO': 102, 'TRJ': 113, 'ADM': 101}
-    hdg_stds = {'IND': 22, 'JAP': 16, 'AUS': 11, 'ARO': 21, 'TRJ': 19, 'ADM': 17}
-    
-    hdg = np.array([np.random.normal(hdg_means[s], hdg_stds[s]) for s in subspecies])
-    hdg = np.clip(hdg, 50, 175)
-    
-    # Crear DataFrame con correlaciones realistas entre rasgos
-    df = pd.DataFrame({
-        'HDG_80HEAD': hdg,
-        'subespecie': subspecies,
-        'country': np.random.choice(countries, n_samples),
-        'SDHT': 39 + 0.15 * (hdg - 100) + np.random.normal(0, 5, n_samples),  # Correlación con HDG
-        'PLT_POST': 25 + 0.08 * (hdg - 100) + np.random.normal(0, 3, n_samples),  # Longitud panícula
-        'CULT_REPRO': 80 + 0.4 * hdg + np.random.normal(0, 8, n_samples),  # Correlación con HDG
-        'GRLT': np.random.normal(7.5, 1.2, n_samples),  # Longitud grano
-        'GRWD': np.random.normal(2.8, 0.5, n_samples),  # Ancho grano
-        'GRWT100': np.random.normal(2.5, 0.4, n_samples),  # Peso 100 granos
-        'LLT': np.random.normal(45, 8, n_samples),  # Longitud hoja
-        'LWD': np.random.normal(1.5, 0.3, n_samples),  # Ancho hoja
-    })
-    
-    # Agregar coordenadas y datos derivados
-    df = add_geographic_data(df)
-    df['GrainSize'] = (df['GRLT'] / df['GRWD']).round(2)
+    # Verificar que los datos se cargaron correctamente
+    if len(df) == 0 or len(geno) == 0:
+        raise FileNotFoundError("Los archivos están vacíos")
+        
+    # Crear variables derivadas coherentes con el EDA
+    if 'GRLT' in df.columns and 'GRWD' in df.columns:
+        df['GrainSize'] = (df['GRLT'] / df['GRWD']).round(2)
+        
     df['HDG_category'] = pd.cut(
         df['HDG_80HEAD'],
         bins=[-np.inf, 90, 110, np.inf],
-        labels=['Early (<90d)', 'Medium (90-110d)', 'Late (>110d)']
+        labels=['Early', 'Medium', 'Late']
     )
     
-    # Genotipos simulados
-    geno = pd.DataFrame(
-        np.random.randn(n_samples, 100),
-        index=df.index,
-        columns=[f'SNP_{i}' for i in range(100)]
-    )
-    
+
+            
+
     return df, geno
+
+
+
 
 @st.cache_data
 def compute_pca(_geno_data, n_components=10):
     """Calcula PCA de los genotipos"""
     scaler = StandardScaler()
-    geno_scaled = scaler.fit_transform(_geno_data)
-    
+    geno_scale = scaler.fit_transform(_geno_data)
+    st.success(f"✅ Genotipos escalados: {geno_scale.shape}")
     pca = PCA(n_components=n_components)
-    pca_result = pca.fit_transform(geno_scaled)
+    pca_result = pca.fit_transform(geno_scale)
     
     explained_var = pca.explained_variance_ratio_
     
@@ -333,7 +239,8 @@ def create_geographic_map(df, color_by='HDG_80HEAD', title="Distribución Geogr�
     
     # Filtrar datos con coordenadas válidas
     df_map = df.dropna(subset=['latitude', 'longitude', color_by]).copy()
-    
+
+    st.success(f"✅ Datos para mapa: {df_map.shape}")
     if len(df_map) == 0:
         st.warning("No hay datos con coordenadas válidas para mostrar en el mapa.")
         return None
@@ -505,7 +412,6 @@ def main():
     <div class='info-box'>
         <b>🔬 Dataset:</b> 3,000 Rice Genomes Project (3K RGP) - 1,882 accesiones de arroz asiático<br>
         <b>🎯 Objetivo:</b> Exploración interactiva de la variación en Heading Date y su relación con geografía, genética y morfología<br>
-        <b>💡 Nota:</b> Cada pestaña tiene filtros independientes para evitar conflictos entre análisis
     </div>
     """, unsafe_allow_html=True)
     
@@ -616,7 +522,7 @@ def main():
         st.markdown("### 🌐 Relación Latitud-Heading Date")
         
         df_lat = df_tab1.dropna(subset=['latitude', 'HDG_80HEAD'])
-        
+        st.success(f"✅ Datos para correlación latitud-HDG: {len(df_lat)} filas")
         if len(df_lat) > 10:
             corr_lat, p_lat = stats.pearsonr(df_lat['latitude'], df_lat['HDG_80HEAD'])
             
