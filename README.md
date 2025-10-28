@@ -34,7 +34,7 @@ Aplicación interactiva de análisis exploratorio para visualizar y analizar la 
 
 ## 🔬 Descripción del Proyecto
 
-Este proyecto desarrolla una **aplicación web interactiva** construida con Streamlit para explorar y analizar datos del **3,000 Rice Genomes Project (3K RGP)**, que contiene información genómica y fenotípica de **1,882 accesiones** de arroz asiático de todo el mundo.
+Este proyecto desarrolla una **aplicación web interactiva** construida con Streamlit para explorar y analizar datos del **3,000 Rice Genomes Project (3K RGP)**, que contiene información genómica y fenotípica de **3,010 accesiones** de arroz asiático de todo el mundo.
 
 ### Objetivos Principales
 
@@ -61,7 +61,7 @@ El **heading date** (tiempo a floración) es uno de los caracteres más crítico
 ### 🗺️ **Exploración Geográfica**
 - Mapas interactivos con distribución global de accesiones
 - Coloración dinámica por HDG, subespecie, región o categoría
-- Análisis de correlación latitud-HDG (r ≈ 0.55-0.65)
+- Análisis de correlación latitud-HDG 
 - Identificación de centros de diversidad
 
 ### 🧬 **Análisis Genético (PCA)**
@@ -95,13 +95,6 @@ El **heading date** (tiempo a floración) es uno de los caracteres más crítico
   - Corto plazo (1-3 años): MAS, bancos de germoplasma
   - Mediano plazo (3-5 años): Selección genómica, NILs
   - Largo plazo (5-10 años): CRISPR, multi-ómica, breeding digital
-
-### 🎛️ **Filtros Independientes**
-- Cada pestaña tiene sus propios filtros (sin conflictos)
-- Filtrado por región geográfica
-- Filtrado por subespecie
-- Rango personalizado de HDG (slider)
-- Estadísticas actualizadas en tiempo real
 
 ---
 
@@ -202,27 +195,8 @@ La aplicación se abrirá automáticamente en tu navegador en `http://localhost:
    - Identifica características regionales
 
 5. **🎯 Conclusiones y Recomendaciones**:
-   - Revisa los hallazgos principales
    - Explora genotipos de interés para cambio climático
    - Consulta las recomendaciones estratégicas
-
-### Ejemplos de Uso
-
-#### Buscar germoplasma ultra-precoz para doble cosecha:
-
-1. Ir a "🗺️ Exploración Geográfica"
-2. Expandir filtros y seleccionar:
-   - Subespecie: AUS
-   - Rango HDG: 50-80 días
-3. Observar distribución geográfica
-4. Ir a "🎯 Conclusiones" → "Cambio Climático" para ver lista completa
-
-#### Identificar variedades tolerantes a calor:
-
-1. Ir a "🌍 Análisis por Regiones"
-2. Filtrar por región: SEA o SAS (zonas cálidas)
-3. Analizar distribución de HDG
-4. Consultar sección de "Tolerancia Directa a Calor" en conclusiones
 
 ---
 
@@ -356,19 +330,6 @@ explained_var = pca.explained_variance_ratio_
 - **Estructura poblacional**: 5 grupos con FST > 0.3
 - **Diversidad**: Subutilizada en programas actuales
 
-### Adaptación Local
-
-- **Correlación latitud-HDG**: r = 0.55-0.65 (p < 0.001)
-- **Patrón claro**: Latitudes altas → ciclos largos
-- **Sincronización**: Con duración de estación de cultivo
-
-### Trade-offs Fenotípicos
-
-| Trade-off | Correlación | Interpretación |
-|-----------|-------------|----------------|
-| HDG vs Altura | r = +0.37 | Tempranas más bajas |
-| HDG vs Long. Panícula | r = +0.55 | Tempranas con panículas cortas |
-| HDG vs Tamaño Grano | r = +0.20 | Tempranas con granos pequeños |
 
 ### Centros de Diversidad
 
@@ -377,12 +338,6 @@ explained_var = pca.explained_variance_ratio_
 3. **Indonesia**: Diversidad tropical única (IND + JAP)
 4. **China**: Amplio rango geográfico, variación latitudinal
 
-### Germoplasma para Cambio Climático
-
-- **Escape térmico**: 165 accesiones AUS (HDG 50-80 días)
-- **Tolerancia calor**: IND tropicales con genes TT1/TT2
-- **Flexibilidad fenológica**: JAP con Hd1 no funcional
-- **Tolerancia sequía**: AUS con sistema radicular profundo
 
 ---
 
@@ -451,9 +406,7 @@ explained_var = pca.explained_variance_ratio_
 
 ---
 
-## ⭐ Star History
 
-Si este proyecto te ha sido útil, ¡considera darle una ⭐ en GitHub!
 
 ---
 
