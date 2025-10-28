@@ -24,7 +24,6 @@ Aplicación interactiva de análisis exploratorio para visualizar y analizar la 
 - [Metodología](#-metodología)
 - [Resultados Clave](#-resultados-clave)
 - [Visualizaciones](#-visualizaciones)
-- [Tecnologías](#-tecnologías)
 - [Referencias Científicas](#-referencias-científicas)
 
 ---
